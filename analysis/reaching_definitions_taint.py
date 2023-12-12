@@ -17,7 +17,7 @@ class ReachingDefinitionsTaintAnalysis():
         """
         JOIN = self.join(cfg_node)
         # Assignment check
-        if isinstance(cfg_node, AssignmentNode): #是否包含了LocalAssign？
+        if isinstance(cfg_node, AssignmentNode): 
             arrow_result = JOIN
 
             # Reassignment check
