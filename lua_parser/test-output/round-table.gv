@@ -1,0 +1,4 @@
+// The Round Table
+digraph {
+	A1 [label="example.foo"]
+}
