@@ -2,47 +2,47 @@
 
 Applying the data flow constraint calculation to the Listing 1, the following results are obtained:
 
-$\llbracket entry\rrbracket={}$ \
-$\llbracket x=io.read()\rrbracket=\llbracket entry\rrbracket\downarrow x\cup\{x=io.read( )\}$ \
-$\llbracket while\ x>2\rrbracket=\llbracket x=io.read()\rrbracket\cup\llbracket z=z+10\rrbracket$ \
-$\llbracket y=x/2\rrbracket=\llbracket while\ x>2\rrbracket\downarrow y\cup\{y=x/2\}$ \
-$\llbracket if\ y<6\rrbracket=\llbracket y=x/2\rrbracket$ \
-$\llbracket x=x+y\rrbracket=\llbracket if\ y<6\rrbracket\downarrow x\cup\{x=x+y\}$ \
-$\llbracket z=x+2\rrbracket=(\llbracket x=x+y\rrbracket\cup\llbracket if\ y<6\rrbracket)\downarrow z\cup\{z=x+2\}$ \
-$\llbracket if\ z>3\rrbracket=\llbracket z=x+2\rrbracket$ \
-$\llbracket x=x/2\rrbracket=\llbracket if\ z>3\rrbracket\downarrow x\cup\{x=x/2\}$ \
-$\llbracket z=z+10\rrbracket=(\llbracket x=x/2\rrbracket\cup\llbracket if\ z>3\rrbracket)\downarrow z\cup\{z=x+10\}$ \
-$\llbracket print(x)\rrbracket=\llbracket while\ x>2\rrbracket$ \
-$\llbracket exit\rrbracket=\llbracket print(x)\rrbracket$ \
+$⟦entry⟧={}$ \
+$⟦x=io.read()\rrbracket=⟦entry\rrbracket\downarrow x\cup\{x=io.read( )\}$ \
+$⟦while\ x>2\rrbracket=⟦x=io.read()\rrbracket\cup⟦z=z+10\rrbracket$ \
+$⟦y=x/2\rrbracket=⟦while\ x>2\rrbracket\downarrow y\cup\{y=x/2\}$ \
+$⟦if\ y<6\rrbracket=⟦y=x/2\rrbracket$ \
+$⟦x=x+y\rrbracket=⟦if\ y<6\rrbracket\downarrow x\cup\{x=x+y\}$ \
+$⟦z=x+2\rrbracket=(⟦x=x+y\rrbracket\cup⟦if\ y<6\rrbracket)\downarrow z\cup\{z=x+2\}$ \
+$⟦if\ z>3\rrbracket=⟦z=x+2\rrbracket$ \
+$⟦x=x/2\rrbracket=⟦if\ z>3\rrbracket\downarrow x\cup\{x=x/2\}$ \
+$⟦z=z+10\rrbracket=(⟦x=x/2\rrbracket\cup⟦if\ z>3\rrbracket)\downarrow z\cup\{z=x+10\}$ \
+$⟦print(x)\rrbracket=⟦while\ x>2\rrbracket$ \
+$⟦exit\rrbracket=⟦print(x)\rrbracket$ \
 \
 \
 One iteration of the above equation is solved as follows:
 
-$\llbracket entry\rrbracket=\{\}$ \
-$\llbracket x=io.read()\rrbracket=\{x=io.read()\}$ \
-$\llbracket while\ x>2\rrbracket=\{x=io.read()\}$ \
-$\llbracket y=x/2\rrbracket=\{x=io.read(),y=x/2\}$ \
-$\llbracket if\ y<6\rrbracket=\{x=io.read(),y=x/2\}$ \
-$\llbracket x=x+y\rrbracket=\{x=x+y,y=x/2\}$ \
-$\llbracket z=x+2\rrbracket=\{x=io.read(),x=x+y,y=x/2,z=x+2\}$ \
-$\llbracket if\ z>3\rrbracket=\{x=io.read(),x=x+y,y=x/2,z=x+2\}$ \
-$\llbracket x=x/2\rrbracket=\{x=x/2,y=x/2,z=x+2\}$ \
-$\llbracket z=z+10\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
-$\llbracket print(x)\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
-$\llbracket exit\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
+$⟦entry\rrbracket=\{\}$ \
+$⟦x=io.read()\rrbracket=\{x=io.read()\}$ \
+$⟦while\ x>2\rrbracket=\{x=io.read()\}$ \
+$⟦y=x/2\rrbracket=\{x=io.read(),y=x/2\}$ \
+$⟦if\ y<6\rrbracket=\{x=io.read(),y=x/2\}$ \
+$⟦x=x+y\rrbracket=\{x=x+y,y=x/2\}$ \
+$⟦z=x+2\rrbracket=\{x=io.read(),x=x+y,y=x/2,z=x+2\}$ \
+$⟦if\ z>3\rrbracket=\{x=io.read(),x=x+y,y=x/2,z=x+2\}$ \
+$⟦x=x/2\rrbracket=\{x=x/2,y=x/2,z=x+2\}$ \
+$⟦z=z+10\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
+$⟦print(x)\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
+$⟦exit\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
 \
 \
 The final results obtained by solving the above equations for several iterations up to the fixed-point are as follows:
 
-$\llbracket entry\rrbracket=\{\}$ \
-$\llbracket x=io.read()\rrbracket=\{x=io.read()\}$ \
-$\llbracket while\ x>2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
-$\llbracket y=x/2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
-$\llbracket if\ y<6\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
-$\llbracket x=x+y\rrbracket=\{x=x+y,y=x/2,z=z+10\}$ \
-$\llbracket z=x+2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+2\}$ \
-$\llbracket if\ z>3\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+2\}$ \
-$\llbracket x=x/2\rrbracket=\{x=x/2,y=x/2,z=x+2\}$ \
-$\llbracket z=z+10\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
-$\llbracket print(x)\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
-$\llbracket exit\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦entry\rrbracket=\{\}$ \
+$⟦x=io.read()\rrbracket=\{x=io.read()\}$ \
+$⟦while\ x>2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦y=x/2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦if\ y<6\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦x=x+y\rrbracket=\{x=x+y,y=x/2,z=z+10\}$ \
+$⟦z=x+2\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+2\}$ \
+$⟦if\ z>3\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+2\}$ \
+$⟦x=x/2\rrbracket=\{x=x/2,y=x/2,z=x+2\}$ \
+$⟦z=z+10\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦print(x)\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
+$⟦exit\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=z+10\}$ \
