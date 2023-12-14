@@ -14,8 +14,8 @@ $\llbracket x=x/2\rrbracket=\llbracket if\ z>3\rrbracket\downarrow x\cup\{x=x/2\
 $\llbracket z=z+10\rrbracket=(\llbracket x=x/2\rrbracket\cup\llbracket if\ z>3\rrbracket)\downarrow z\cup\{z=x+10\}$ \
 $\llbracket print(x)\rrbracket=\llbracket while\ x>2\rrbracket$ \
 $\llbracket exit\rrbracket=\llbracket print(x)\rrbracket$ \
-
-
+\
+\
 One iteration of the above equation is solved as follows:
 
 $\llbracket entry\rrbracket=\{\}$ \
@@ -30,8 +30,8 @@ $\llbracket x=x/2\rrbracket=\{x=x/2,y=x/2,z=x+2\}$ \
 $\llbracket z=z+10\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
 $\llbracket print(x)\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
 $\llbracket exit\rrbracket=\{x=io.read(),x=x+y,x=x/2,y=x/2,z=x+10\}$ \
-
-
+\
+\
 The final results obtained by solving the above equations for several iterations up to the fixed-point are as follows:
 
 $\llbracket entry\rrbracket=\{\}$ \
