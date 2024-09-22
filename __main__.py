@@ -158,14 +158,3 @@ def main(command_line_args=sys.argv[1:]):  # noqa: C901
 
 if __name__ == '__main__':
     main()
-    '''start_time = time.time()
-    main(command_line_args)
-    end_time = time.time()
-    runtime = end_time-start_time    
-    with open('output.txt', 'w') as f:
-        sys.stdout = f
-        # your code here
-        print(runtime)
-        process = psutil.Process(os.getpid())
-        print(process.memory_info().rss)  # in bytes 
-    sys.stdout = sys.__stdout__'''
