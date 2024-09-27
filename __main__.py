@@ -107,13 +107,6 @@ def main(command_line_args=sys.argv[1:]):  # noqa: C901
         cfg_list = [cfg]
         
         framework_entry_criteria = is_luci_route_function
-        if args.adaptor:
-            if args.adaptor.lower().startswith('e'):
-                framework_entry_criteria = is_function
-            elif args.adaptor.lower().startswith('p'):
-                framework_entry_criteria = is_function_without_leading_
-            elif args.adaptor.lower().startswith('d'):
-                framework_entry_criteria = is_django_view_function
 
         # Add all the route functions to the cfg_list
         FrameworkAdaptor(
