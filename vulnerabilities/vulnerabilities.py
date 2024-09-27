@@ -99,7 +99,7 @@ def find_assignments(
     new = [source.cfg_node]
 
     while new != old:
-        update_assignments(new, assignment_nodes, source.cfg_node, lattice)
+        update_assignments(new, assignment_nodes, lattice)
         old = new
 
     # remove source node from result
@@ -107,78 +107,28 @@ def find_assignments(
 
     return new
 
-class Index:
-    def __init__(self, idx, value):
-        self.idx = idx
-        self.value = value
-
-def access_innermost_index(node):
-    """Recursively access the innermost idx and value of an Index type."""
-    # Base case: if both idx and value are not of Index type, return them as is
-    if not isinstance(node.idx, ast.Index) and not isinstance(node.value, ast.Index):
-        return node.idx, node.value
-    # Recursive case: if idx is of Index type, dive deeper
-    if isinstance(node.idx, ast.Index):
-        idx_id, _ = access_innermost_index(node.idx)
-    else:
-        idx_id = node.idx  # idx is already at the innermost id
-    # Recursive case: if value is of Index type, dive deeper
-    if isinstance(node.value, ast.Index):
-        _, value_id = access_innermost_index(node.value)
-    else:
-        value_id = node.value  # value is already at the innermost id
-    return idx_id, value_id
-
-def trace_tablevariable_idx(node):
-    taint_id = list()
-    if not isinstance(node, ast.Return):
-        if hasattr(node, "values") and isinstance(node.values, list) and len(node.values)!=0 and isinstance(node.values[0], ast.Table):
-            if isinstance(node.targets, list) and len(node.targets)!=0:
-                if isinstance(node.targets[0], ast.Name):
-                    taint_id.append(node.targets[0].id)
-                elif isinstance(node.targets[0], ast.Index):
-                    idx_id, value_id = access_innermost_index(node.targets[0])
-                    taint_id.append(idx_id)
-                    taint_id.append(value_id)
-            for field in node.values[0].fields:
-                if not isinstance(field.value, ast.String) and isinstance(field.key, ast.Name):
-                    taint_id.append(field.key.id)
-                if not isinstance(field.value, ast.String) and isinstance(field.key, ast.Number):
-                    taint_id.append(field.key.n)
-                return taint_id
-    return None
 
 def update_assignments(
     assignment_list,
     assignment_nodes,
-    source,
     lattice
 ):
-    table_tainted_id=list()
     for node in assignment_nodes:
         for other in assignment_list:
             if node not in assignment_list and lattice.in_constraint(other, node):
-                tainted_id=trace_tablevariable_idx(node.ast_node)
-                if tainted_id != None:
-                    table_tainted_id.append(tainted_id) 
-                append_node_if_reassigned(assignment_list, other, node, table_tainted_id)
+                append_node_if_reassigned(assignment_list, other, node)
 
 
 def append_node_if_reassigned(
     assignment_list,
     secondary,
-    node,
-    table_tainted_id
+    node
 ):
-    if secondary.left_hand_side in node.right_hand_side_variables:
-        if secondary.left_hand_side == node.right_hand_side_variables[-1] and len(node.right_hand_side_variables)>1:
-            for i in node.right_hand_side_variables[:-1]:
-                if any(i in sublist for sublist in node.right_hand_side_variables[1:]):
-                    assignment_list.append(node)
-        else: assignment_list.append(node)
-    elif secondary.left_hand_side == node.left_hand_side:
+    if (
+        secondary.left_hand_side in node.right_hand_side_variables or
+        secondary.left_hand_side == node.left_hand_side
+    ):
         assignment_list.append(node)
-
 
 def find_triggers(
     nodes,
